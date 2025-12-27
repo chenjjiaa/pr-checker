@@ -19,16 +19,16 @@ A simple, configurable GitHub Action to validate pull request rules. Built with 
 
 ## Quick Start
 
-### 1. Add the Action to your workflow
+### 1. Add the Action to your workflow (Required)
 
-Create `.github/workflows/pr-check.yml`:
+Create `.github/workflows/pr-check-ci.yml`:
 
-```yaml
+```yml
 name: PR Check
 
 on:
   pull_request:
-    types: [opened, synchronize, reopened]
+    types: [opened, synchronize, reopened, labeled, unlabeled, edited]
 
 jobs:
   check:
@@ -44,18 +44,19 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-### 2. Create configuration file
+### 2. Create configuration file (Optional)
 
-Create `.github/pr-checker.yml`:
+Create `.github/pr-checker.yml`.
+
+> If you don't create this file, the default configuration will be loaded from [https://github.com/chenjjiaa/pr-checker/blob/main/pr-checker.yml](https://github.com/chenjjiaa/pr-checker/blob/main/pr-checker.yml).
 
 ```yaml
 title:
-  pattern: "^(feat|fix|docs|chore):"
+  pattern: "^(feat|fix|docs|chore|refactor|test|style|perf|ci|build|revert)(\\([^)]+\\))?:"
   min_length: 10
 
 labels:
-  required:
-    - "kind/bug"
+  required: []
 ```
 
 That's it! The Action will now validate all PRs against your rules.

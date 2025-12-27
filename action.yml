@@ -13,4 +13,4 @@ inputs:
   config:
     description: "Path to PR checker config file"
     required: false
-    default: ".github/pr-checker.yml"
+    default: "pr-checker.yml"
