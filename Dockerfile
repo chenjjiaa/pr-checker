@@ -30,6 +30,13 @@ RUN cargo chef prepare --recipe-path recipe.json
 # Builder stage
 # ────────────────────────────────
 FROM chef AS builder 
+# Install dependencies needed to compile reqwest/openssl on musl
+RUN apk add --no-cache \
+    build-base \
+    pkgconfig \
+    openssl-dev \
+    musl-dev \
+    ca-certificates
 COPY --from=planner /app/recipe.json recipe.json
 RUN cargo chef cook --release --recipe-path recipe.json --locked
 COPY . .

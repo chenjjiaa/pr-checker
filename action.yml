@@ -1,4 +1,4 @@
-name: "PR Checker"
+name: "chenjjiaa/pr-checker"
 description: "Validate pull request rules (title pattern, labels, etc.)"
 author: "chenjjiaa"
 branding:
@@ -7,7 +7,7 @@ branding:
 
 runs:
   using: docker
-  image: deploy/Dockerfile
+  image: Dockerfile
 
 inputs:
   config:

@@ -37,7 +37,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: PR Checker
-        uses: your-org/pr-checker@v0.1.0
+        uses: chenjjiaa/pr-checker@v0.1.0
         with:
           config: .github/pr-checker.yml
         env:
