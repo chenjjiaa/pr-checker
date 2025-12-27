@@ -52,7 +52,7 @@ Create `.github/pr-checker.yml`.
 
 ```yaml
 title:
-  pattern: "^(feat|fix|docs|chore|refactor|test|style|perf|ci|build|revert|Bump)(\\([^)]+\\))?:"
+  pattern: "^(feat|fix|docs|chore|refactor|test|style|perf|ci|build|revert)(\\([^)]+\\))?:|^Bump .+"
   min_length: 10
 
 labels:
@@ -68,7 +68,7 @@ That's it! The Action will now validate all PRs against your rules.
 ```yaml
 title:
   # Regex pattern to match (optional)
-  pattern: "^(feat|fix|docs|chore):"
+  pattern: "^(feat|fix|docs|chore|refactor|test|style|perf|ci|build|revert)(\\([^)]+\\))?:|^Bump .+"
 
   # Minimum length (optional)
   min_length: 10
@@ -91,7 +91,7 @@ labels:
 
 ```yaml
 title:
-  pattern: "^(feat|fix|docs|chore|refactor|test|style|perf|ci|build|revert|Bump)(\\([^)]+\\))?:"
+  pattern: "^(feat|fix|docs|chore|refactor|test|style|perf|ci|build|revert)(\\([^)]+\\))?:|^Bump .+"
   min_length: 10
   max_length: 100
 
@@ -124,7 +124,7 @@ labels:
 
 ```yaml
 title:
-  pattern: "^(feat|fix|docs|chore|refactor|test|style|perf|ci|build|revert|Bump)(\\([^)]+\\))?:"
+  pattern: "^(feat|fix|docs|chore|refactor|test|style|perf|ci|build|revert)(\\([^)]+\\))?:|^Bump .+"
   min_length: 10
 ```
 
