@@ -42,4 +42,13 @@ impl Config {
 		let config: Config = serde_yaml::from_str(&content)?;
 		Ok(config)
 	}
+
+	/// Load built-in default config bundled at compile time.
+	pub fn from_default() -> crate::error::Result<Self> {
+		// The default config is stored at repository path `.github/pr-checker.yml`
+		// and embedded via include_str! to make runtime fallback possible.
+		const DEFAULT_CONFIG_STR: &str = include_str!("../../pr-checker.yml");
+		let config: Config = serde_yaml::from_str(DEFAULT_CONFIG_STR)?;
+		Ok(config)
+	}
 }

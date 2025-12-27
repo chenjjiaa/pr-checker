@@ -54,12 +54,11 @@ RUN apk add --no-cache ca-certificates
 RUN addgroup -g 1000 appuser && \
     adduser -D -u 1000 -G appuser appuser
 
-WORKDIR /app
-COPY --from=builder /app/target/release/pr-checker /app/pr-checker
+# GitHub Actions workspace is mounted at /github/workspace
+WORKDIR /github/workspace
+COPY --from=builder /app/target/release/pr-checker /usr/local/bin/pr-checker
 
-# Set ownership
-RUN chown -R appuser:appuser /app
 # Switch to non-root user
 USER appuser
 
-ENTRYPOINT ["/app/pr-checker"]
+ENTRYPOINT ["/usr/local/bin/pr-checker"]

@@ -19,7 +19,8 @@ mod github;
 mod rules;
 
 use clap::Parser;
-use tracing::{error, info};
+use std::io::ErrorKind;
+use tracing::{error, info, warn};
 
 #[derive(Parser)]
 #[command(name = "pr-checker")]
@@ -58,6 +59,15 @@ async fn main() {
 				.unwrap_or_else(|_| tracing_subscriber::EnvFilter::new("info")),
 		)
 		.init();
+
+	// Ensure we operate in the GitHub workspace when running as an Action
+	if let Ok(ws) = std::env::var("GITHUB_WORKSPACE") {
+		if let Err(e) = std::env::set_current_dir(&ws) {
+			warn!("Failed to set current dir to GITHUB_WORKSPACE={ws}: {e}");
+		} else {
+			info!("Working directory set to GITHUB_WORKSPACE: {}", ws);
+		}
+	}
 
 	let args = Args::parse();
 
@@ -111,9 +121,23 @@ async fn run(config_path: &str) -> error::Result<Vec<rules::Violation>> {
 	info!("Starting PR checker...");
 	info!("Config path: {}", config_path);
 
-	// Load configuration
-	let config = config::Config::from_file(config_path)?;
-	info!("Configuration loaded successfully");
+	// Load configuration, fallback to built-in default if file missing
+	let config = match config::Config::from_file(config_path) {
+		Ok(c) => {
+			info!("Configuration loaded successfully");
+			c
+		}
+		Err(error::Error::Io(ref e)) if e.kind() == ErrorKind::NotFound => {
+			warn!(
+				"Config file not found at '{}', falling back to built-in default",
+				config_path
+			);
+			let cfg = config::Config::from_default()?;
+			info!("Loaded built-in default configuration");
+			cfg
+		}
+		Err(e) => return Err(e),
+	};
 
 	// Initialize GitHub client from environment
 	let client = github::GitHubClient::from_env()?;
