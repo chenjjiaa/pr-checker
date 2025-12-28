@@ -3,7 +3,7 @@ name = "pr-checker"
 version = "0.1.0"
 edition = "2024"
 license = "Apache-2.0"
-authors = ["chenjjiaa"]
+authors = ["itscheems"]
 
 [dependencies]
 reqwest = { version = "0.12", default-features = false, features = [

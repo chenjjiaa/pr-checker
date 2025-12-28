@@ -37,7 +37,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: PR Checker
-        uses: chenjjiaa/pr-checker@v0.1.0
+        uses: itscheems/pr-checker@v0.1.0
         with:
           config: .github/pr-checker.yml
         env:
@@ -48,7 +48,7 @@ jobs:
 
 Create `.github/pr-checker.yml`.
 
-> If you don't create this file, the default configuration will be loaded from [https://github.com/chenjjiaa/pr-checker/blob/main/pr-checker.yml](https://github.com/chenjjiaa/pr-checker/blob/main/pr-checker.yml).
+> If you don't create this file, the default configuration will be loaded from [https://github.com/itscheems/pr-checker/blob/main/pr-checker.yml](https://github.com/itscheems/pr-checker/blob/main/pr-checker.yml).
 
 ```yaml
 title:
@@ -201,4 +201,4 @@ Licensed under the Apache License, Version 2.0. See [LICENSE](LICENSE) for detai
 
 ## Author
 
-chenjjiaa
+itscheems
